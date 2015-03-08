@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Using the css resize property</title>
+ 
+  <style type="text/less">
+	@resizerHeight: 5px;
+	@tubeHeight: 400px;
+
+	body {
+	  background: white;
+	}
+	body > div {
+	  width: 80px;
+	  height: @tubeHeight;
+	  position: relative;
+	  overflow: hidden;
+	  float: left;
+	  margin-left: 5px;
+	  border: 1px solid #888;
+	  border-bottom-left-radius: 80px;
+	  border-bottom-right-radius: 80px;
+	  border-top: 0;
+	  background: linear-gradient(to top, #4cf, #f40);
+	}
+	#resizer {
+	  position: absolute;
+	  background: white;
+	  width: 6px;
+	  
+	  /* the browser won't go below this height, we can't set it more at startup :-( */
+	  height: 20px;
+	  max-height: @tubeHeight;
+	  /* enlarge the resize button created by the browser */
+	  /* it's going to be hidden by the :after */
+	  transform: scaleX(200);
+	  transform-origin: top left;
+	  /* resize works with overflow!=visible */
+	  resize: vertical;
+	  overflow: auto;
+	  bottom: 0;
+	  top: 0;
+	  max-width: 100%;
+	}
+	#resizer:after {
+	  cursor: n-resize;
+	  content: '';
+	  position: absolute;
+	  background: black;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  height: @resizerHeight;
+	}
+	#resizer:hover:after {
+	  background: #888;
+	}
+  </style>
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/2.3.1/less.min.js"></script>
+</head>
+<body>
+  <p>Drag the cursors down, no JS is used, just using css resize: vertical and a scaleX trick to make the resize available on all the width.</p>
+  <p>Note: IE does not implement the resize property</p>
+  <div id="a"><div id="resizer"></div></div>
+  <div id="b"><div id="resizer"></div></div>
+  <div id="c"><div id="resizer"></div></div>
+</body>
+</html>
